@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.bd.mapper.BdCpnManageMapper">
+
+	<select id="selectCpnInfo" resultType="com.example.demo.bd.model.couponVO" parameterType="com.example.demo.bd.model.couponVO">
+		SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+		SELECT
+		       TC.CPN_NO                                                                                     
+		     , TC.CPN_NAME                                                                                  
+		     , TC.DISCOUNT_RATE                                                                             
+		     , TC.DISCOUNT_MAX_PRICE                                                                        
+		     , TC.APPLY_SRT_DT                                                                              
+		     , TC.APPLY_ENT_DT                                                                               
+		     , TC.AUTO_YN                                                                                   
+		     , TC.USE_YN                                                                                     
+		     , TC.USE_DT                                                                                     
+		  FROM dbo.TEST_CPN_BAS AS TC                                                                            
+		 WHERE 1=1
+		   AND TC.CPN_NO                                        = #{cpnNo}                                  
+	</select>
+	<select id="selectDiscount" resultType="com.example.demo.bd.model.couponVO" parameterType="com.example.demo.bd.model.couponVO">
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+	SELECT 
+			TVC.HAVE_CPN_NO
+			, TVC.MEMBER_NO
+			, TVC.CPN_NO
+			, TVC.USE_YN
+			, TCB.CPN_NAME
+			, TCB.DISCOUNT_RATE
+			, TCB.DISCOUNT_MAX_PRICE
+			, TCB.APPLY_SRT_DT
+			, TCB.APPLY_ENT_DT 
+	FROM TEST_HAVE_CPN TVC
+	INNER JOIN TEST_CPN_BAS TCB 
+	ON   TVC.CPN_NO= TCB.CPN_NO 
+	WHERE TVC.USE_YN = 'N'  /**** 해당 쿠폰을 가졌을 때 사용여부가 N인것****/
+	
+	</select>
+</mapper>

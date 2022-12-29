@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.bd.mapper.CdtlnMessageMapper2">
+
+<!-- 나중에 파라미터랑 resultType 바꿔주기 -->
+<select id="selectSorinCredtInfo" resultType="com.example.demo.bd.model.OrderInfoVO" parameterType="com.example.demo.bd.model.OrderInfoVO">
+	SELECT DISTINCT memld.MRTGG_DELNG_DT
+	     , dbo.fn_getCodeNm('MRTGG_DELNG_TY_CODE', memld.MRTGG_DELNG_TY_CODE) AS MRTGG_DELNG_TY_CODE
+	     , CASE WHEN memld.MRTGG_DELNG_TY_CODE = '02' --주문
+	             THEN memld.MRTGG_DELNG_AMOUNT
+	             ELSE 0
+	         END AS USE_AMT         /* 사용 */
+	     , CASE WHEN memld.MRTGG_DELNG_TY_CODE = '06' --갱신        
+	             THEN memld.MRTGG_DFNNT
+	             WHEN memld.MRTGG_DELNG_TY_CODE NOT IN ('02','06') --갱신/주문 제외    
+	             THEN memld.MRTGG_DELNG_AMOUNT
+	             ELSE 0
+	         END AS CHARGE_AMT  /* 충전     */
+	     , memld.MRTGG_BLCE
+	     , memld.ORDER_NO
+	     , memld.MRTGG_SUMRY
+	     , CONVERT(VARCHAR(10), CONVERT(DATE, omb.SETLE_PREARNGE_DE)) AS SETLE_PREARNGE_DE
+	  FROM MB_ENTRPS_MRTGG_LMT_DTL memld
+	INNER JOIN OR_ORDER_BAS oob
+	    ON oob.ENTRPS_NO = memld.ENTRPS_NO
+	   AND memld.DELETE_AT = 'N'
+	   AND oob.SETLE_MTHD_CODE = '40'
+	   AND oob.SETLE_MTHD_DETAIL_CODE = '4010'
+	   AND oob.DELETE_AT = 'N'
+	INNER JOIN OR_MRTGG_BAS omb
+	    ON omb.ORDER_NO = oob.ORDER_NO
+	   AND omb.GRNTY_NO = memld.GRNTY_NO
+	   AND omb.DELETE_AT = 'N'
+	WHERE memld.GRNTY_NO = 'SORIN20111125-03'
+	   AND memld.ENTRPS_NO = 'C0240'
+	   AND oob.ORDER_NO = #{orderNo}
+	ORDER BY memld.MRTGG_DELNG_DT DESC
+</select>
+</mapper>

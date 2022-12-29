@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.bd.mapper.BdFaqManageMapper">
+
+<select id="selectList" resultType="com.example.demo.bd.model.BdFaqManageVO">
+		/*  SQL-ID: FaqManageMapper. selectList */
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+	SELECT
+		BFB.FAQ_NO
+		, BFB. FAQ_QESTN
+		, BFB.FAQ_ANSWER
+		, BFB.FAQ_EXPSR_AT
+		, BFB.DELETE_AT
+	FROM BD_FAQ_BAS BFB
+		WHERE DELETE_AT = 'N'
+</select>
+	
+</mapper>

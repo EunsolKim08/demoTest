@@ -1,0 +1,432 @@
+server:
+  port: 28090
+  servlet:
+    session:
+      cookie:
+        name: demoJSESSIONID
+
+  tomcat:
+    basedir: C:/work_sec/sts-4.10.0.RELEASE
+    accesslog:
+      enabled: true
+      pattern: "%t %a %s \"%r\" %b (%D ms)"
+      directory: log
+      suffix: .log
+      prefix: access
+
+logging:
+  config: classpath:config/logback/logback.xml
+
+spring:
+  profiles:
+    active: local
+  security:
+    user:
+      name: user
+      password: 1234
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/     
+      suffix: .jsp
+
+  http:
+    encoding:
+      charset: UTF-8
+      enable: true
+      force: true
+
+redisPubsub:
+  uri:
+    sel: /selpc
+    lme: /lmepc
+    fx: /fxpc
+    wishAlram: /wishAlram
+    sidecar: /sidecar
+    restTime: /setRestTime
+    startLmeData: /startLmeData
+  crncyCode:
+    KRW: SPTUSD/KRW
+
+metalCode:
+  list : 1,2,5,7,8,9
+  Zn: 1
+  Pb: 2
+  Cu: 5
+  Al: 7
+  Ni: 8
+  Sn: 9
+
+---
+spring:
+  profiles: local
+  
+  bo:
+    domain: 127.0.0.1
+  
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    jdbc-url: jdbc:log4jdbc:sqlserver://172.10.0.204:1433;database=SEC_DEV
+    username: srec0009
+    password: Korea11!@
+  
+  servlet:
+    multipart:
+      maxFileSize: 5MB
+      maxRequestSize: 5MB
+      fileSizeThreshold: 5MB
+      location: C:\fileUpload\
+
+  redis:
+    host: 10.202.0.4
+    port: 26379
+    password:
+    
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+
+  websocket:
+    stompConnectURI: /websocket
+        
+  sts:
+    api:
+      approval-entrps-mberInfo-url: http://127.0.0.1:28081/api/sts/approval_entrps_mber_info
+
+  va:
+    api:
+      ewallet-refnd: http://127.0.0.1:28079/api/ewallet/refund
+
+hanafx:
+  fshg:
+    order-rehndl-url: http://127.0.0.1:28090/hanafx/fshg/order/rehndl
+
+credit:
+  mrtgg:
+    repy-url: http://127.0.0.1:28081/api/credt/mrtgg/trnsmis
+  loan:
+    repy-url: http://127.0.0.1:28081/api/credt/lon/execute
+    limit-url: http://127.0.0.1:28081/api/credt/lon/getLonLmt
+    cancel-url: http://127.0.0.1:28081/api/credt/lon/cancel
+
+# order
+order:
+  api:
+    samsung:
+      order:
+        url: http://127.0.0.1:28089/samsung/ftrs/order/new
+      cancel:
+        url: http://127.0.0.1:28089/samsung/ftrs/order/cancel
+    lo:
+      oms:
+        url: http://127.0.0.1:28081/api/lo
+    ewallet:
+      money:
+        url: http://127.0.0.1:28088/api/ewallet/money
+      order:
+        url: http://127.0.0.1:28088/api/ewallet/transfer
+      refund:
+        url: http://127.0.0.1:28088/api/ewallet/drtApprov
+      manage:
+        url: http://127.0.0.1:28088/api/ewallet/manage
+    taxbill:
+      url: http://127.0.0.1:28081/api/taxBill/TaxBillIsu
+  samsung:
+    timeoutsec: 5
+    ordertype: N
+  ewallet:
+    timeoutsec: 60
+
+# oz
+oz:
+  connection:
+    reportname: DEV
+  db:
+    alias: SC_ECDV
+
+# taxBill
+#   taxBill.server.schema 스키마 정보
+#   taxBill.server.api 세금계산서 발행요청 btobi 송신 API 접속 정보
+#   taxBill.server.fo FO 화면 접속 정보 (세금계산서 이메일 재발송 > 서류관리)
+taxBill:
+  url:
+    server: http://127.0.0.1:28081/api/taxBill/TaxBillIsu
+  fo:
+    link: http://127.0.0.1:28085/my/papersManage/viewPapersManage
+#    schema:
+#      http: http
+#      https: https
+#    api:
+#      host: 127.0.0.1
+#      port: 28081
+#    fo:
+#      host: 127.0.0.1
+#      port: 28085
+
+erp:
+  url:
+    server: http://127.0.0.1:28081/api/erpAcntTrnsmit
+  
+# lcTrace
+lcTrace:
+  server:
+    viewer:
+      host: 10.202.0.4
+      port: 38080
+
+dblink:
+  sts:
+    name: "[SC_STSDEV].SLS_DEV.DBO."
+  qbic:
+    name: "QBICSORIN_DEV.DBO."
+
+---
+spring:
+  profiles: dev
+  
+  bo:
+    domain: 10.202.0.6
+  
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    jdbc-url: jdbc:log4jdbc:sqlserver://172.10.0.204:1433;database=SEC_DEV
+    username: srec0009
+    password: Korea11!@
+
+  servlet:
+    multipart:
+      maxFileSize: 5MB
+      maxRequestSize: 5MB
+      fileSizeThreshold: 5MB
+      location: /home/fileUpload/   
+
+  redis:
+    host: 10.202.0.4
+    port: 26379
+    password:
+    
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+
+  websocket:
+    stompConnectURI: /websocket
+        
+  sts:
+    api:
+      approval-entrps-mberInfo-url: http://10.202.0.6:28081/api/sts/approval_entrps_mber_info
+
+  va:
+    api:
+      ewallet-refnd: http://10.202.0.6:28088/api/ewallet/refund
+
+hanafx:
+  fshg:
+    order-rehndl-url: http://10.202.0.6:28090/hanafx/fshg/order/rehndl  
+
+credit:
+  mrtgg:
+    repy-url: http://10.202.0.6:28081/api/credt/mrtgg/trnsmis
+  loan:
+    repy-url: http://127.0.0.1:28081/api/credt/lon/execute
+    limit-url: http://127.0.0.1:28081/api/credt/lon/getLonLmt
+    cancel-url: http://127.0.0.1:28081/api/credt/lon/cancel
+    
+# order
+order:
+  api:
+    samsung:
+      order:
+        url: http://10.202.0.6:28089/samsung/ftrs/order/new
+      cancel:
+        url: http://10.202.0.6:28089/samsung/ftrs/order/cancel
+    lo:
+      oms:
+        url: http://10.202.0.6:28081/api/lo
+    ewallet:
+      money:
+        url: http://10.202.0.6:28088/api/ewallet/money
+      order:
+        url: http://10.202.0.6:28088/api/ewallet/transfer
+      refund:
+        url: http://10.202.0.6:28088/api/ewallet/drtApprov
+      manage:
+        url: http://10.202.0.6:28088/api/ewallet/manage
+    taxbill:
+      url: http://10.202.0.6:28081/api/taxBill/TaxBillIsu
+  samsung:
+    timeoutsec: 5
+    ordertype: N
+  ewallet:
+    timeoutsec: 60
+
+# oz
+oz:
+  connection:
+    reportname: DEV
+  db:
+    alias: SC_ECDV
+
+# taxBill
+#   taxBill.server.schema 스키마 정보
+#   taxBill.server.api 세금계산서 발행요청 btobi 송신 API 접속 정보
+#   taxBill.server.fo FO 화면 접속 정보 (세금계산서 이메일 재발송 > 서류관리)
+taxBill:
+  url:
+    server: http://10.202.0.6:28081/api/taxBill/TaxBillIsu
+  fo:
+    link: http://10.202.0.6:28085/my/papersManage/viewPapersManage
+#    schema:
+#      http: http
+#      https: https
+#    api:
+#      host: 10.202.0.6
+#      port: 28081
+#    fo:
+#      host: 10.202.0.6
+#      port: 28085
+
+erp:
+  url:
+    server: http://10.202.0.6:28081/api/erpAcntTrnsmit
+  
+# lcTrace
+lcTrace:
+  server:
+    viewer:
+      host: 10.202.0.4
+      port: 38080
+
+dblink:
+  sts:
+    name: "[SC_STSDEV].SLS_DEV.DBO."
+  qbic:
+    name: "QBICSORIN_DEV.DBO."
+---
+spring:
+  profiles: prd
+  
+  bo:
+    domain: adm.metalsorin.com
+  
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    jdbc-url: jdbc:log4jdbc:sqlserver://sorincorp-sql.469e62cd382e.database.windows.net;database=sec
+    username: sec
+    password: Korea11!@
+
+  servlet:
+    multipart:
+      maxFileSize: 5MB
+      maxRequestSize: 5MB
+      fileSizeThreshold: 5MB
+      location: /home/fileUpload/
+
+  redis:
+    host: SorinCorp-RedisCache.redis.cache.windows.net
+    port: 6379
+    password: EAjgkmXwXFYgVAVD7asLmW3DCnLT49KOXAzCaPJz8IA=
+    #ssl: true
+    
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+  sts:
+    api:
+      approval-entrps-mberInfo-url: https://sorinapi.azurewebsites.net/api/sts/approval_entrps_mber_info
+
+  websocket:
+    stompConnectURI: http://adm.metalsorin.com/websocket
+
+  va:
+    api:
+      ewallet-refnd: http://10.202.0.10:28088/api/ewallet/refund
+
+hanafx:
+  fshg:
+    order-rehndl-url: http://10.202.0.10:28090/hanafx/fshg/order/rehndl
+
+credit:
+  mrtgg:
+    repy-url: https://sorinapi.azurewebsites.net/api/credt/mrtgg/trnsmis
+  loan:
+    repy-url: https://sorinapi.azurewebsites.net/api/credt/lon/execute
+    limit-url: https://sorinapi.azurewebsites.net/api/credt/lon/getLonLmt
+    cancel-url: https://sorinapi.azurewebsites.net/api/credt/lon/cancel
+    
+# order
+order:
+  api:
+    samsung:
+      order:
+        url: http://10.207.0.10:28089/samsung/ftrs/order/new
+      cancel:
+        url: http://10.207.0.10:28089/samsung/ftrs/order/cancel
+    lo:
+      oms:
+        url: https://sorinapi.azurewebsites.net/api/lo
+    ewallet:
+      money:
+        url: http://10.202.0.10:28088/api/ewallet/money
+      order:
+        url: http://10.202.0.10:28088/api/ewallet/transfer
+      refund:
+        url: http://10.202.0.10:28088/api/ewallet/drtApprov
+      manage:
+        url: http://10.202.0.10:28088/api/ewallet/manage
+    taxbill:
+      url: https://sorinapi.azurewebsites.net/api/taxBill/TaxBillIsu
+  samsung:
+    timeoutsec: 5
+    ordertype: N
+  ewallet:
+    timeoutsec: 60
+
+# oz
+oz:
+  connection:
+    reportname: REAL
+  db:
+    alias: SC_PRD
+
+# taxBill
+#   taxBill.server.schema 스키마 정보
+#   taxBill.server.api 세금계산서 발행요청 btobi 송신 API 접속 정보
+#   taxBill.server.fo FO 화면 접속 정보 (세금계산서 이메일 재발송 > 서류관리)
+taxBill:
+  url:
+    server: https://sorinapi.azurewebsites.net/api/taxBill/TaxBillIsu
+  fo:
+    link: https://sorinfo.azurewebsites.net/my/papersManage/viewPapersManage
+#    schema:
+#      http: http
+#      https: https
+#    api:
+#      host: 20.41.66.225
+#      port: 28081
+#    fo:
+#      host: 20.41.66.225
+#      port: 28085
+      
+erp:
+  url:
+    server: https://sorinapi.azurewebsites.net/api/erpAcntTrnsmit
+  
+# lcTrace
+lcTrace:
+  server:
+    viewer:
+      host: 10.204.0.4
+      port: 80
+
+dblink:
+  sts:
+    name: "[SC_STS].SLS_REAL.DBO."
+  qbic:
+    name: "[QBIC].QBICSORIN.DBO."

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns="http://www.nhncorp.com/lucy-xss" extends="lucy-xss-superset.xml">
+	<!--XSS를 방어하기 위한 필터링 기법. 웹어플리케이션으로 들어오는 모든 reqeust들에 대해 filter링을 수행함.  -->
+	<elementRule>
+		<element name="applet" disable="true" />
+		<element name="base" disable="true" />
+		<element name="body" disable="true" />
+		<element name="form" disable="true" />
+		<element name="html" disable="true" />
+		<element name="iframe" disable="true" />
+		<element name="meta" disable="true" />
+		<element name="script" disable="true" />
+		<element name="style" disable="true" />
+		<element name="textarea" disable="true" />
+		<element name="xml" disable="true" />
+		<element name="xmp" disable="true" />
+		<element name="td" endTag="false" />
+		<element name="embed" disable="false" />
+		<element name="object" disable="true" />
+	</elementRule>
+	
+	<attributeRule>
+		<attribute name="src">
+		<!-- <![CDATA[ ... ]]> : 파싱되지 않은 문자데이터  -->
+			<allowedPattern><![CDATA[['"]?\s*http://.*]]></allowedPattern>
+		</attribute>
+		<attribute name="href">
+			<notAllowedPattern><![CDATA[(?i:script)]]></notAllowedPattern>
+			<notAllowedPattern><![CDATA[(?i:\.css)]]></notAllowedPattern>
+		</attribute>
+		<attribute name="style">
+			<notAllowedPattern><![CDATA[(?i:expression)]]></notAllowedPattern>
+			<notAllowedPattern><![CDATA[(?i:alert)]]></notAllowedPattern>
+		</attribute>
+	</attributeRule>
+</config>
