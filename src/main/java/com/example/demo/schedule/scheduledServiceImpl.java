@@ -18,7 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.batch.checkMemberConfig;
+import com.example.demo.batch.member.checkMemberConfig;
 import com.example.demo.bd.mapper.BdCpnManageMapper;
 import com.example.demo.bd.mapper.BdPointManageMapper;
 import com.example.demo.bd.model.couponVO;

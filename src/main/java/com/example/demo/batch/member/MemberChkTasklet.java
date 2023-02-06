@@ -1,4 +1,4 @@
-package com.example.demo.batch;
+package com.example.demo.batch.member;
 
 import java.util.List;
 

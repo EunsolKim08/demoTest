@@ -14,7 +14,7 @@
 
 <div style="margin: 100px;">
 	<h2>home</h2>
-	<table>
+<%-- 	<table>
 	<tr>
 		<td>FAQ 번호</td>
 		<td>FAQ 질문</td>
@@ -29,7 +29,7 @@
 				<td>${list.faqExpsrAt}</td>
 			</tr>
 		</c:forEach>
-	</table>
+	</table> --%>
 	<button type="button" onclick="location.href='/calendarTest'">캘린더 테스트</button>
 	<button type="button" onclick="location.href='/cartList'">카트 테스트</button>
 	<button type="button" onclick="location.href='/modalPage'">모달 테스트</button>
@@ -40,6 +40,7 @@
 	<button type="button" onclick="location.href='/admin/manageMainPage'">권한 메인페이지 테스트</button>
 	<button type="button" onclick="location.href='/buyTestEmail'">주문완료 테스트 템플릿</button>
 	<button type="button" onclick="location.href='/returnTestEmail'">상환완료 테스트 템플릿</button>
+	<button type="button" onclick="location.href='/clousreTest'">클로져 테스트</button>
 </div>
 
 

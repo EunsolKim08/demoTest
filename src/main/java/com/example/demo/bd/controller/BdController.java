@@ -295,6 +295,14 @@ public class BdController {
 		
 		return "bd/returnTestEmail";
 	}
+	
+	@RequestMapping("/clousreTest")
+	public String clousreTest(ModelMap model) {
+		
+		
+		
+		return "bd/clousreTest";
+	}
 
 		
 	
