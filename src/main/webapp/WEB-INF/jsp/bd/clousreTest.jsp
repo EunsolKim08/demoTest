@@ -21,16 +21,18 @@ var arr= [];
 function closureTest(){
 	
 	let count = 0
-	console.log("count클릭");
 	return function(){
 		count++;
 		
-		console.log("count는 "+ count);
 		return count;
 	}
 }
 
+const a = closureTest();
 
+function test(){
+	console.log(a());
+}
 
 </script>
 <body>
@@ -40,6 +42,7 @@ function closureTest(){
 	<form>
 		<div>
 			<button type="button" onclick="closureTest()">클로져테스트</button>
+				<button type="button" onclick="test()">A 출력</button>
 		</div>
 		
 	</form>

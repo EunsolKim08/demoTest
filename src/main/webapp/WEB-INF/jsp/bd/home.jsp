@@ -43,6 +43,15 @@
 	<button type="button" onclick="location.href='/clousreTest'">클로져 테스트</button>
 </div>
 
+<script>
+	console.log(x);
+	var x  = "호이스팅 테스트 var";
+	console.log(x);
+	
+	console.log(y);
+	let y = "호이스팅 테스트 let";
+	console.log(y);
+</script>
 
 </body>
 </html>
